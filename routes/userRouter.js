@@ -1,16 +1,16 @@
-//External Module
+//core Modules
+const path = require('path')
 
+//External Module
 const express = require('express');
 
 const userRouter = express.Router();
+//Local Module
+const rootdir = require("../utils/pathUtil")
 
 userRouter.get("/",(req,res,next) => {
 
-  res.send(`<h1>Welcome to airbnb </h1>
-    
-    <a href="/host/add-home">Add Home</a>
-    
-    `);
+ res.sendFile(path.join(rootdir,"views","home.html"))
 })
 
 module.exports = userRouter;
