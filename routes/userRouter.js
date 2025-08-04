@@ -11,6 +11,7 @@ const rootdir = require("../utils/pathUtil")
 userRouter.get("/",(req,res,next) => {
 
  res.sendFile(path.join(rootdir,"views","home.html"))
+
 })
 
 module.exports = userRouter;
