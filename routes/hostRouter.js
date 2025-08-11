@@ -7,14 +7,18 @@ const hostRouter = express.Router();
 //Local Module
 const rootdir = require("../utils/pathUtil")
 
+
+
 hostRouter.get("/add-home",(req,res,next) => {
- res.sendFile(path.join(rootdir,"views","addHome.html")  );
+res.render('addHome', {pageTitle: 'add Home to airbnb' , currentPage: 'addHome'})
 })
-
+const registeredHomes = [];
 hostRouter.post("/add-home",(req,res,next) => {
-  console.log(req.body);
-  res.sendFile(path.join(rootdir,"views","homeAdded.html"))
+  console.log("Home Registration successful for:",req.body );
+  registeredHomes.push(req.body)
+  res.render('homeAdded', {pageTitle: 'Home add sucessfully' ,currentPage: 'homeAdded'})
 })
 
 
-module.exports = hostRouter;
+exports.hostRouter = hostRouter;
+exports.registeredHomes = registeredHomes;
