@@ -7,11 +7,12 @@ const path = require('path');
 const  express = require('express')
 
 // Local Module
-const userRouter = require('./routes/userRouter');
+const storeRouter = require('./routes/storeRouter');
 
-const {hostRouter} = require('./routes/hostRouter');
+const hostRouter = require('./routes/hostRouter');
 //Local Module
 const rootdir = require("./utils/pathUtil")
+const errorsController = require("./controllers/error")
 
 const app = express();
 
@@ -21,13 +22,11 @@ app.set('views','views')
 app.use(express.urlencoded());
 
  app.use(express.static(path.join(rootdir,"public")))
-app.use(userRouter);
+app.use(storeRouter);
 app.use("/host",hostRouter);
 
 
-app.use((req,res,next) => {
-  res.status(404).render('404', {pageTitle: 'page not found' , currentPage: '404'})
-})
+app.use(errorsController.pageNotFound)
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on address http://localhost:${PORT}`)
